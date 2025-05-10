@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import ProgressiveImage from 'react-progressive-image';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Projects = () => {
   const projects = [
@@ -56,15 +57,13 @@ const Projects = () => {
               className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
               whileHover={{ rotateY: 5 }}
             >
-              <ProgressiveImage src={project.image} placeholder={project.placeholder}>
-                {(src, loading) => (
-                  <img
-                    src={src}
-                    alt={project.title}
-                    className={`w-full h-48 object-cover rounded-md mb-4 ${loading ? 'blur-sm' : 'blur-none'} transition-all duration-300`}
-                  />
-                )}
-              </ProgressiveImage>
+              <LazyLoadImage
+                src={project.image}
+                placeholderSrc={project.placeholder}
+                alt={project.title}
+                effect="blur"
+                className="w-full h-48 object-cover rounded-md mb-4"
+              />
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
               <p className="text-lg mb-4">{project.description}</p>
               <p className="text-sm mb-4"><strong>Tech:</strong> {project.tech.join(', ')}</p>
